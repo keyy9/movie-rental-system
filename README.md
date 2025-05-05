@@ -1,6 +1,6 @@
 # Movie Rental System
 
-A Java-based command-line application for managing a movie rental business. The system allows for movie management, customer registration, rental operations, and late return tracking.
+A Java-based GUI application for managing a movie rental business. The system allows for movie management, customer registration, rental operations, and late return tracking with a modern graphical interface.
 
 ## Features
 
@@ -36,6 +36,16 @@ mysql -u root < movie_rental_system.sql
 mvn clean package
 ```
 
+## Features
+
+- Modern graphical user interface
+- Easy navigation with sidebar menu
+- Movie management (add, view, track availability)
+- Customer registration and management
+- Rental operations (rent and return movies)
+- Late return tracking with visual indicators
+- Intuitive forms and tables for data display
+
 ## Running the Application
 
 After building, run the application using:
@@ -45,18 +55,14 @@ java -jar target/movie-rental-system-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 ## Usage
 
-The application provides a command-line interface with the following options:
+The application provides a graphical interface with the following sections:
 
-1. Add Movie - Add a new movie to the system
-2. Register Customer - Register a new customer
-3. Rent Movie - Rent a movie to a customer
-4. Return Movie - Process a movie return
-5. View Late Rentals - Show all overdue rentals
-6. View All Movies - Display all movies in the system
-7. View Available Movies - Show only available movies
-8. View All Customers - List all registered customers
-9. View Customer Rentals - Show rental history for a specific customer
-0. Exit - Close the application
+- **Home** - Welcome screen
+- **Movies** - Add and manage movies
+- **Customers** - Register and manage customers
+- **Rent** - Rent movies to customers
+- **Return** - Process movie returns
+- **Late Returns** - Track overdue rentals with color-coded indicators
 
 ## Database Schema
 
