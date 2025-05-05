@@ -34,11 +34,13 @@ public class RentalService {
         return movieItemDAO.getAvailableMovies();
     }
 
+    public MovieItem getMovieById(int id) {
+        return movieItemDAO.getMovie(id);
+    }
+
     // Customer management
     public boolean registerCustomer(String name, String email) {
-        // Check if email already exists
         if (customerDAO.getCustomerByEmail(email) != null) {
-            System.out.println("Email already registered!");
             return false;
         }
         Customer customer = new Customer(name, email);
@@ -49,33 +51,34 @@ public class RentalService {
         return customerDAO.getAllCustomers();
     }
 
+    public Customer getCustomerById(int id) {
+        return customerDAO.getCustomer(id);
+    }
+
+    public Customer getCustomerByEmail(String email) {
+        return customerDAO.getCustomerByEmail(email);
+    }
+
     // Rental operations
     public boolean rentMovie(int movieId, int customerId) {
-        // Check if movie exists and is available
         MovieItem movie = movieItemDAO.getMovie(movieId);
         if (movie == null || !movie.isAvailable()) {
-            System.out.println("Movie not available for rent!");
             return false;
         }
 
-        // Check if customer exists
         Customer customer = customerDAO.getCustomer(customerId);
         if (customer == null) {
-            System.out.println("Customer not found!");
             return false;
         }
 
-        // Create rental
         Rental rental = new Rental(movieId, customerId);
         if (rentalDAO.createRental(rental)) {
-            // Update movie availability
             return movieItemDAO.updateMovieAvailability(movieId, false);
         }
         return false;
     }
 
     public boolean returnMovie(int rentalId) {
-        // Get rental details first
         List<Rental> currentRentals = rentalDAO.getCurrentRentals();
         Rental rentalToReturn = currentRentals.stream()
                 .filter(r -> r.getId() == rentalId)
@@ -83,11 +86,9 @@ public class RentalService {
                 .orElse(null);
 
         if (rentalToReturn == null) {
-            System.out.println("Rental not found or already returned!");
             return false;
         }
 
-        // Update rental and movie availability
         if (rentalDAO.returnMovie(rentalId)) {
             return movieItemDAO.updateMovieAvailability(rentalToReturn.getMovieItemId(), true);
         }
